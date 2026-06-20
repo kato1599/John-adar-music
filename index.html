@@ -306,6 +306,31 @@
 
         function selectMerch(color, size, price) {
             const merchItem = `${color} T-Shirt - Size ${size}`;
+            
+            // Collect customer address
+            const fullName = prompt('Enter your full name:');
+            if (!fullName) return;
+            
+            const email = prompt('Enter your email address:');
+            if (!email) return;
+            
+            const phone = prompt('Enter your phone number (10 digits):');
+            if (!phone) return;
+            
+            const street = prompt('Enter your street address:');
+            if (!street) return;
+            
+            const city = prompt('Enter your city:');
+            if (!city) return;
+            
+            const state = prompt('Enter your state:');
+            if (!state) return;
+            
+            const zipcode = prompt('Enter your zip/postal code:');
+            if (!zipcode) return;
+            
+            const fullAddress = `${street}, ${city}, ${state} - ${zipcode}`;
+            
             const options = {
                 key: 'rzp_test_T3sQp07ZSB17t7',
                 amount: price * 100,
@@ -314,17 +339,21 @@
                 description: merchItem,
                 image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663752149231/9kREf6eg3NexQ4dWmsqgha/john-adar-logo-UV4Ri9k5mVzCb5sCksMmYV.webp',
                 handler: function(response) {
-                    alert('Thank you for your order! Payment ID: ' + response.razorpay_payment_id + '\n\nItem: ' + merchItem + '\nPrice: ₹' + price);
+                    const orderDetails = `Thank you for your order!\n\nPayment ID: ${response.razorpay_payment_id}\n\nItem: ${merchItem}\nPrice: ₹${price}\n\nDelivery Address:\n${fullName}\n${fullAddress}\nPhone: ${phone}`;
+                    alert(orderDetails);
                 },
                 prefill: {
-                    name: '',
-                    email: '',
-                    contact: ''
+                    name: fullName,
+                    email: email,
+                    contact: phone
                 },
                 notes: {
                     item: merchItem,
                     color: color,
-                    size: size
+                    size: size,
+                    deliveryAddress: fullAddress,
+                    customerName: fullName,
+                    customerPhone: phone
                 },
                 theme: {
                     color: '#e94560'
@@ -333,8 +362,7 @@
 
             const rzp = new Razorpay(options);
             rzp.open();
-        }
-    </script>
+        }    </script>
     <script src="script.js"></script>
 </body>
 </html>
