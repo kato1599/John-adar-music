@@ -229,6 +229,49 @@ body {
     font-size: 1.2rem;
 }
 
+/* Hero Appointment & Donate Container */
+.hero-appointment-donate {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+.hero-donate {
+    text-align: center;
+}
+
+.hero-donate-buttons {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.donate-btn-small {
+    padding: 0.6rem 1rem;
+    background: linear-gradient(135deg, var(--accent-color), #ff6b9d);
+    color: var(--white);
+    border: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+.donate-btn-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(233, 69, 96, 0.5);
+}
+
+.donate-btn-small:active {
+    transform: translateY(-1px);
+}
+
 /* Sections */
 section {
     padding: 80px 0;
