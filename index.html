@@ -20,6 +20,7 @@
                 <li><a href="#music" class="nav-link">Music</a></li>
                 <li><a href="#tour" class="nav-link">Tour</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#donate" class="nav-link donate-nav">Donate</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -200,6 +201,29 @@
         </div>
     </section>
 
+    <!-- Donate Section -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <h2 class="section-title">Support John Adar's Music</h2>
+            <p class="donate-subtitle">Your support helps create amazing music and live performances</p>
+            
+            <div class="donate-content">
+                <div class="donate-options">
+                    <button class="donate-btn" onclick="initiateRazorpayDonation(100)">₹100</button>
+                    <button class="donate-btn" onclick="initiateRazorpayDonation(250)">₹250</button>
+                    <button class="donate-btn" onclick="initiateRazorpayDonation(500)">₹500</button>
+                    <button class="donate-btn" onclick="initiateRazorpayDonation(1000)">₹1000</button>
+                    <button class="donate-btn" onclick="initiateRazorpayDonation(2500)">₹2500</button>
+                </div>
+                
+                <div class="donate-custom">
+                    <input type="number" id="customAmount" placeholder="Enter custom amount (₹)" min="1" max="100000">
+                    <button class="btn btn-primary" onclick="initiateRazorpayDonation(document.getElementById('customAmount').value)">Donate Custom Amount</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -259,6 +283,42 @@
         </div>
     </footer>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function initiateRazorpayDonation(amount) {
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            const options = {
+                key: 'rzp_test_T3sQp07ZSB17t7',
+                amount: amount * 100, // Amount in paise
+                currency: 'INR',
+                name: 'John Adar',
+                description: 'Support John Adar\'s Music',
+                image: 'https://via.placeholder.com/200',
+                handler: function(response) {
+                    alert('Thank you for your donation! Payment ID: ' + response.razorpay_payment_id);
+                    document.getElementById('customAmount').value = '';
+                },
+                prefill: {
+                    name: '',
+                    email: '',
+                    contact: ''
+                },
+                notes: {
+                    purpose: 'Support John Adar Music'
+                },
+                theme: {
+                    color: '#e94560'
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
